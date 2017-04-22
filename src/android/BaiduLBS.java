@@ -75,7 +75,7 @@ public class BaiduLBS extends CordovaPlugin {
 
 			// 第四步，开始定位
 			// 开启：
-			Log.i(TAG, "execute. location client stop");
+			Log.i(TAG, "execute. location client start");
 			mLocationClient.start();
 			return true;
 		}
@@ -126,7 +126,7 @@ public class BaiduLBS extends CordovaPlugin {
 		option.setIsNeedLocationPoiList(true);
 		// 可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
 
-		option.setIgnoreKillProcess(false);
+		option.setIgnoreKillProcess(true);
 		// 可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
 
 		option.SetIgnoreCacheException(false);
