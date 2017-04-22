@@ -62,7 +62,7 @@ public class BaiduLBS extends CordovaPlugin {
 		checkAPIKEY();
 
 		Log.i(TAG, "execute. action = " + action);
-		if (action.equals("getCurrentPosition")) {
+		if (action.equals("getCurrentLocation")) {
 
 			// 第一步，初始化LocationClient类
 			if (null == mLocationClient) {
