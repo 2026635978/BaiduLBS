@@ -1,27 +1,23 @@
 package BaiduLBS;
 
 import java.util.List;
-import java.util.Set;
 
-import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
-
+import org.apache.cordova.CordovaPlugin;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-//import com.baidu.location.BDNotifyListener; //假如用到位置提醒功能，需要import该类
 import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.location.Poi;
+//import com.baidu.location.BDNotifyListener; //假如用到位置提醒功能，需要import该类
 
 /**
  * This class echoes a string called from JavaScript.
@@ -30,36 +26,33 @@ public class BaiduLBS extends CordovaPlugin {
 
 	private static final String TAG = BaiduLBS.class.getSimpleName();
 
-	private void checkAPIKEY() {
-		Activity activity = this.cordova.getActivity();
-		android.content.pm.PackageManager pm = activity.getPackageManager();
-		String pn = activity.getPackageName();
-		android.content.pm.ApplicationInfo ai;
-		try {
-			ai = pm.getApplicationInfo(pn,
-					android.content.pm.PackageManager.GET_META_DATA);
-			Set<String> keys = ai.metaData.keySet();
-			StringBuilder sb = new StringBuilder();
-			for (String key : keys) {
-				sb.append(key).append(":").append(ai.metaData.get(key))
-						.append("\n");
-			}
-			android.widget.Toast.makeText(activity,
-					"metaData = " + sb.toString(),
-					android.widget.Toast.LENGTH_LONG).show();
-			String API_KEY = ai.metaData.getString("com.baidu.lbsapi.API_KEY");
-			Log.i(TAG, "checkAPIKEY. api_key = " + API_KEY);
-		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	private void checkAPIKEY() {
+//		Activity activity = this.cordova.getActivity();
+//		android.content.pm.PackageManager pm = activity.getPackageManager();
+//		String pn = activity.getPackageName();
+//		android.content.pm.ApplicationInfo ai;
+//		try {
+//			ai = pm.getApplicationInfo(pn,
+//					android.content.pm.PackageManager.GET_META_DATA);
+//			Set<String> keys = ai.metaData.keySet();
+//			StringBuilder sb = new StringBuilder();
+//			for (String key : keys) {
+//				sb.append(key).append(":").append(ai.metaData.get(key))
+//						.append("\n");
+//			}
+//			String API_KEY = ai.metaData.getString("com.baidu.lbsapi.API_KEY");
+//			Log.i(TAG, "checkAPIKEY. api_key = " + API_KEY);
+//		} catch (NameNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Override
 	public boolean execute(String action, JSONArray args,
 			CallbackContext callbackContext) throws JSONException {
 
-		checkAPIKEY();
+//		checkAPIKEY();
 
 		Log.i(TAG, "execute. action = " + action);
 		if (action.equals("getCurrentLocation")) {
@@ -383,7 +376,7 @@ public class BaiduLBS extends CordovaPlugin {
 		@Override
 		public void onConnectHotSpotMessage(String arg0, int arg1) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		// BDLocation类，封装了定位SDK的定位结果，在BDLocationListener的onReceive方法中获取。通过该类用户可以获取错误码，位置的坐标，精度半径等信息。具体方法请参考类参考。
@@ -408,8 +401,6 @@ public class BaiduLBS extends CordovaPlugin {
 		// 501～700：AK验证失败，请按照说明文档重新申请AK。
 		// 如果不能定位，请记住这个返回值，并到百度LBS开放平台论坛Andriod定位SDK版块中进行交流，网址：http://bbs.lbsyun.baidu.com/forum.php?mod=forumdisplay&fid=10
 		// 。若返回值是162~167，请将错误码、IMEI和定位时间反馈至邮箱loc-bugs@baidu.com，以便我们跟进追查问题。
-
-		
 
 	}
 }
