@@ -380,6 +380,12 @@ public class BaiduLBS extends CordovaPlugin {
 			}
 		}
 
+		@Override
+		public void onConnectHotSpotMessage(String arg0, int arg1) {
+			// TODO Auto-generated method stub
+			
+		}
+
 		// BDLocation类，封装了定位SDK的定位结果，在BDLocationListener的onReceive方法中获取。通过该类用户可以获取错误码，位置的坐标，精度半径等信息。具体方法请参考类参考。
 		// 获取定位返回错误码：：
 		// public int getLocType ( )
