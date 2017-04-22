@@ -200,7 +200,7 @@ public class BaiduLBS extends CordovaPlugin {
 			sb.append(location.getLocType()); // 获取类型类型
 			sb.append("\nlatitude : ");
 			sb.append(location.getLatitude()); // 获取纬度信息
-			sb.append("\nlontitude : ");
+			sb.append("\nlongitude : ");
 			sb.append(location.getLongitude()); // 获取经度信息
 			sb.append("\nradius : ");
 			sb.append(location.getRadius()); // 获取定位精准度
@@ -209,7 +209,7 @@ public class BaiduLBS extends CordovaPlugin {
 				json.put("time", location.getTime());
 				json.put("locType", location.getLocType());
 				json.put("latitude", location.getLatitude());
-				json.put("lontitude", location.getLongitude());
+				json.put("longitude", location.getLongitude());
 				json.put("radius", location.getRadius());
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
