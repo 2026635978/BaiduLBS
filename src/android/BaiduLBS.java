@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -17,6 +18,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.location.LocationClientOption.LocationMode;
 import com.baidu.location.Poi;
+
 //import com.baidu.location.BDNotifyListener; //假如用到位置提醒功能，需要import该类
 
 /**
@@ -26,33 +28,68 @@ public class BaiduLBS extends CordovaPlugin {
 
 	private static final String TAG = BaiduLBS.class.getSimpleName();
 
-//	private void checkAPIKEY() {
-//		Activity activity = this.cordova.getActivity();
-//		android.content.pm.PackageManager pm = activity.getPackageManager();
-//		String pn = activity.getPackageName();
-//		android.content.pm.ApplicationInfo ai;
-//		try {
-//			ai = pm.getApplicationInfo(pn,
-//					android.content.pm.PackageManager.GET_META_DATA);
-//			Set<String> keys = ai.metaData.keySet();
-//			StringBuilder sb = new StringBuilder();
-//			for (String key : keys) {
-//				sb.append(key).append(":").append(ai.metaData.get(key))
-//						.append("\n");
-//			}
-//			String API_KEY = ai.metaData.getString("com.baidu.lbsapi.API_KEY");
-//			Log.i(TAG, "checkAPIKEY. api_key = " + API_KEY);
-//		} catch (NameNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	// private void checkAPIKEY() {
+	// Activity activity = this.cordova.getActivity();
+	// android.content.pm.PackageManager pm = activity.getPackageManager();
+	// String pn = activity.getPackageName();
+	// android.content.pm.ApplicationInfo ai;
+	// try {
+	// ai = pm.getApplicationInfo(pn,
+	// android.content.pm.PackageManager.GET_META_DATA);
+	// Set<String> keys = ai.metaData.keySet();
+	// StringBuilder sb = new StringBuilder();
+	// for (String key : keys) {
+	// sb.append(key).append(":").append(ai.metaData.get(key))
+	// .append("\n");
+	// }
+	// String API_KEY = ai.metaData.getString("com.baidu.lbsapi.API_KEY");
+	// Log.i(TAG, "checkAPIKEY. api_key = " + API_KEY);
+	// } catch (NameNotFoundException e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
+
+	// ------------------------------------------------------------------------------------------------------------------------------------------------
+
+	private LocationClient mLocationClient;
+	private BDLocationListener myListener;
+
+	@Override
+	public void onStart() {
+		super.onStart();
+		Log.i(TAG, "onStart");
+	}
+
+	@Override
+	public void onPause(boolean multitasking) {
+		super.onPause(multitasking);
+		Log.i(TAG, "onPause");
+	}
+
+	@Override
+	public void onResume(boolean multitasking) {
+		super.onResume(multitasking);
+		Log.i(TAG, "onResume");
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+		Log.i(TAG, "onStop");
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		Log.i(TAG, "onDestroy");
+	}
 
 	@Override
 	public boolean execute(String action, JSONArray args,
 			CallbackContext callbackContext) throws JSONException {
 
-//		checkAPIKEY();
+		// checkAPIKEY();
 
 		Log.i(TAG, "execute. action = " + action);
 		if (action.equals("getCurrentLocation")) {
@@ -81,11 +118,6 @@ public class BaiduLBS extends CordovaPlugin {
 		}
 		return false;
 	}
-
-	// ------------------------------------------------------------------------------------------------------------------------------------------------
-
-	private LocationClient mLocationClient;
-	private BDLocationListener myListener;
 
 	// 第二步，配置定位SDK参数
 	// 设置定位参数包括：定位模式（高精度定位模式、低功耗定位模式和仅用设备定位模式），返回坐标类型，是否打开GPS，是否返回地址信息、位置语义化信息、POI信息等等。
@@ -126,7 +158,7 @@ public class BaiduLBS extends CordovaPlugin {
 		option.setIsNeedLocationPoiList(true);
 		// 可选，默认false，设置是否需要POI结果，可以在BDLocation.getPoiList里得到
 
-		option.setIgnoreKillProcess(true);
+		option.setIgnoreKillProcess(false);
 		// 可选，默认true，定位SDK内部是一个SERVICE，并放到了独立进程，设置是否在stop的时候杀死这个进程，默认不杀死
 
 		option.SetIgnoreCacheException(false);
@@ -359,7 +391,6 @@ public class BaiduLBS extends CordovaPlugin {
 				Log.i(TAG,
 						"BDLocationListener.onReceiveLocation. location client stop");
 				mLocationClient.stop();
-				mLocationClient = null;
 			}
 
 			// 提交数据结果
@@ -367,9 +398,17 @@ public class BaiduLBS extends CordovaPlugin {
 					"BDLocationListener.onReceiveLocation. data = "
 							+ json.toString());
 			if (successful) {
-				callbackContext.success(json);
+				// callbackContext.success(json);
+				PluginResult pluginResult = new PluginResult(
+						PluginResult.Status.OK, json);
+				pluginResult.setKeepCallback(true);
+				callbackContext.sendPluginResult(pluginResult);
 			} else {
-				callbackContext.error(json);
+				// callbackContext.error(json);
+				PluginResult pluginResult = new PluginResult(
+						PluginResult.Status.OK, json);
+				pluginResult.setKeepCallback(true);
+				callbackContext.sendPluginResult(pluginResult);
 			}
 		}
 
