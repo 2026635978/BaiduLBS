@@ -406,7 +406,7 @@ public class BaiduLBS extends CordovaPlugin {
 			} else {
 				// callbackContext.error(json);
 				PluginResult pluginResult = new PluginResult(
-						PluginResult.Status.OK, json);
+						PluginResult.Status.ERROR, json);
 				pluginResult.setKeepCallback(true);
 				callbackContext.sendPluginResult(pluginResult);
 			}
