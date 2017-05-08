@@ -1,0 +1,24 @@
+{
+  "name": "cordova-plugin-BaiduLBS",
+  "version": "1.0.0",
+  "description": "百度LBS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2026635978/cordova-plugin-BaiduLBS.git"
+  },
+  "keywords": [
+    "cordova",
+    "plugin",
+    "BaiduLBS"
+  ],
+  "author": "2026635978",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/2026635978/cordova-plugin-BaiduLBS/issues"
+  },
+  "homepage": "https://github.com/2026635978/cordova-plugin-BaiduLBS#readme"
+}
